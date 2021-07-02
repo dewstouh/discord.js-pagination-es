@@ -1,7 +1,7 @@
 const paginationEmbed = async (msg, pages, emojiList = ['⏪', '⏩'], timeout = 120000) => {
-	if (!msg && !msg.channel) throw new Error('Channel is inaccessible.');
-	if (!pages) throw new Error('Pages are not given.');
-	if (emojiList.length !== 2) throw new Error('Need two emojis.');
+	if (!msg && !msg.channel) throw new Error('No se puede acceder al canal');
+	if (!pages) throw new Error('No se han especificado las páginas.');
+	if (emojiList.length !== 2) throw new Error('Se necesitan dos emojis.');
 	let page = 0;
 	const curPage = await msg.channel.send(pages[page].setFooter(`Página ${page + 1} / ${pages.length}`));
 	for (const emoji of emojiList) await curPage.react(emoji);
@@ -21,7 +21,7 @@ const paginationEmbed = async (msg, pages, emojiList = ['⏪', '⏩'], timeout =
 			default:
 				break;
 		}
-		curPage.edit(pages[page].setFooter(`Página ${page + 1} / ${pages.length}`));
+		curPage.edit(`\u200b`, pages[page].setFooter(`Página ${page + 1} / ${pages.length}`));
 	});
 	reactionCollector.on('end', () => {
 		if (!curPage.deleted) {
